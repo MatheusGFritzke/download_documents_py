@@ -37,14 +37,14 @@ for document in documentList:
 
         if response.status_code == 200:
             intarray = response.json().get('data', [])
-            nome_arquivo = os.path.join(download_folder, f"{document['patientName']}-{document['eSignatureId']}.pdf")
+            document_name = os.path.join(download_folder, f"{document['patientName']}-{document['eSignatureId']}.pdf")
 
-            with open(nome_arquivo, "wb") as file:
+            with open(document_name, "wb") as file:
                 for i in intarray:
                     file.write(i.to_bytes(1, byteorder='big'))
 
             files_downloaded += 1
-            print(f"Download do arquivo {nome_arquivo} concluído com sucesso! ({files_downloaded}/{total_files} files downloaded)")
+            print(f"Download do arquivo {document_name} concluído com sucesso! ({files_downloaded}/{total_files} files downloaded)")
         else:
             print(f"Falha ao baixar o arquivo para o código {document['eSignatureId']}. Status code: {response.status_code}")
 
